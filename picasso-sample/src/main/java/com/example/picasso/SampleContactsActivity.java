@@ -34,11 +34,11 @@ public class SampleContactsActivity extends PicassoSampleActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.sample_contacts_activity);
 
-    adapter = new SampleContactsAdapter(this);
+    adapter = new SampleContactsAdapter(this, this.picasso);
 
     ListView lv = findViewById(android.R.id.list);
     lv.setAdapter(adapter);
-    lv.setOnScrollListener(new SampleScrollListener(this));
+    lv.setOnScrollListener(new SampleScrollListener(this, this.picasso));
 
     getSupportLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
   }

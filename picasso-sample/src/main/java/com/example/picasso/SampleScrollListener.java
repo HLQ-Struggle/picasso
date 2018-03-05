@@ -7,14 +7,15 @@ import com.squareup.picasso.Picasso;
 
 public class SampleScrollListener implements AbsListView.OnScrollListener {
   private final Context context;
+  private final Picasso picasso;
 
-  public SampleScrollListener(Context context) {
+  public SampleScrollListener(Context context, Picasso picasso) {
     this.context = context;
+    this.picasso = picasso;
   }
 
   @Override
   public void onScrollStateChanged(AbsListView view, int scrollState) {
-    final Picasso picasso = Picasso.get();
     if (scrollState == SCROLL_STATE_IDLE || scrollState == SCROLL_STATE_TOUCH_SCROLL) {
       picasso.resumeTag(context);
     } else {

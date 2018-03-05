@@ -14,10 +14,12 @@ import java.util.List;
 
 final class SampleListDetailAdapter extends BaseAdapter {
   private final Context context;
+  private final Picasso picasso;
   private final List<String> urls = new ArrayList<>();
 
-  SampleListDetailAdapter(Context context) {
+  SampleListDetailAdapter(Context context, Picasso picasso) {
     this.context = context;
+    this.picasso = picasso;
     Collections.addAll(urls, Data.URLS);
   }
 
@@ -39,7 +41,7 @@ final class SampleListDetailAdapter extends BaseAdapter {
     holder.text.setText(url);
 
     // Trigger the download of the URL asynchronously into the image view.
-    Picasso.get()
+    picasso
         .load(url)
         .placeholder(R.drawable.placeholder)
         .error(R.drawable.error)

@@ -13,10 +13,12 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
 final class SampleGridViewAdapter extends BaseAdapter {
   private final Context context;
+  private final Picasso picasso;
   private final List<String> urls = new ArrayList<>();
 
-  SampleGridViewAdapter(Context context) {
+  SampleGridViewAdapter(Context context, Picasso picasso) {
     this.context = context;
+    this.picasso = picasso;
 
     // Ensure we get a different ordering of images on each run.
     Collections.addAll(urls, Data.URLS);
@@ -39,7 +41,7 @@ final class SampleGridViewAdapter extends BaseAdapter {
     String url = getItem(position);
 
     // Trigger the download of the URL asynchronously into the image view.
-    Picasso.get() //
+    picasso //
         .load(url) //
         .placeholder(R.drawable.placeholder) //
         .error(R.drawable.error) //

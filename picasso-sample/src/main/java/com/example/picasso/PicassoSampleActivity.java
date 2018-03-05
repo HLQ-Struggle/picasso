@@ -9,7 +9,6 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ToggleButton;
-
 import com.squareup.picasso.Picasso;
 
 import static android.view.View.GONE;
@@ -18,8 +17,11 @@ import static android.view.View.VISIBLE;
 abstract class PicassoSampleActivity extends FragmentActivity {
   private ToggleButton showHide;
   private FrameLayout sampleContent;
+  protected Picasso picasso;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
+    picasso = ((SampleApplication) getApplicationContext()).picasso();
+
     super.onCreate(savedInstanceState);
     super.setContentView(R.layout.picasso_sample_activity);
     sampleContent = findViewById(R.id.sample_content);
@@ -45,7 +47,7 @@ abstract class PicassoSampleActivity extends FragmentActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    Picasso.get().cancelTag(this);
+    picasso.cancelTag(this);
   }
 
   @Override public void onBackPressed() {

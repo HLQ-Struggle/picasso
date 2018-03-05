@@ -32,10 +32,12 @@ import static com.example.picasso.SampleContactsActivity.ContactsQuery;
 
 class SampleContactsAdapter extends CursorAdapter {
   private final LayoutInflater inflater;
+  private final Picasso picasso;
 
-  SampleContactsAdapter(Context context) {
+  SampleContactsAdapter(Context context, Picasso picasso) {
     super(context, null, 0);
-    inflater = LayoutInflater.from(context);
+    this.inflater = LayoutInflater.from(context);
+    this.picasso = picasso;
   }
 
   @Override public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
@@ -58,7 +60,7 @@ class SampleContactsAdapter extends CursorAdapter {
     holder.text1.setText(cursor.getString(ContactsQuery.DISPLAY_NAME));
     holder.icon.assignContactUri(contactUri);
 
-    Picasso.get()
+    picasso
         .load(contactUri)
         .placeholder(R.drawable.contact_picture_placeholder)
         .tag(context)

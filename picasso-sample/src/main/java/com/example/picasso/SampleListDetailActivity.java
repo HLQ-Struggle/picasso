@@ -1,6 +1,5 @@
 package com.example.picasso;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 
 public class SampleListDetailActivity extends PicassoSampleActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +36,13 @@ public class SampleListDetailActivity extends PicassoSampleActivity {
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
       final SampleListDetailActivity activity = (SampleListDetailActivity) getActivity();
-      final SampleListDetailAdapter adapter = new SampleListDetailAdapter(activity);
+      final SampleListDetailAdapter adapter =
+          new SampleListDetailAdapter(activity, activity.picasso);
 
       ListView listView = (ListView) LayoutInflater.from(activity)
           .inflate(R.layout.sample_list_detail_list, container, false);
       listView.setAdapter(adapter);
-      listView.setOnScrollListener(new SampleScrollListener(activity));
+      listView.setOnScrollListener(new SampleScrollListener(activity, activity.picasso));
       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -69,7 +68,7 @@ public class SampleListDetailActivity extends PicassoSampleActivity {
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-      Activity activity = getActivity();
+      SampleListDetailActivity activity = (SampleListDetailActivity) getActivity();
 
       View view = LayoutInflater.from(activity)
           .inflate(R.layout.sample_list_detail_detail, container, false);
@@ -81,7 +80,7 @@ public class SampleListDetailActivity extends PicassoSampleActivity {
       String url = arguments.getString(KEY_URL);
 
       urlView.setText(url);
-      Picasso.get()
+      activity.picasso
           .load(url)
           .fit()
           .tag(activity)

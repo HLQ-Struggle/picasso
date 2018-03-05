@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 import java.util.Random;
 
 final class PicassoSampleAdapter extends BaseAdapter {
@@ -26,7 +25,7 @@ final class PicassoSampleAdapter extends BaseAdapter {
     CONTACTS("Contact Photos", SampleContactsActivity.class),
     LIST_DETAIL("List / Detail View", SampleListDetailActivity.class),
     SHOW_NOTIFICATION("Sample Notification", null) {
-      @Override public void launch(Activity activity) {
+      @Override public void launch(PicassoSampleActivity activity) {
         RemoteViews remoteViews =
             new RemoteViews(activity.getPackageName(), R.layout.notification_view);
 
@@ -44,7 +43,7 @@ final class PicassoSampleAdapter extends BaseAdapter {
         notificationManager.notify(NOTIFICATION_ID, notification);
 
         // Now load an image for this notification.
-        Picasso.get() //
+        activity.picasso //
             .load(Data.URLS[new Random().nextInt(Data.URLS.length)]) //
             .resizeDimen(R.dimen.notification_icon_width_height,
                 R.dimen.notification_icon_width_height) //
@@ -60,7 +59,7 @@ final class PicassoSampleAdapter extends BaseAdapter {
       this.name = name;
     }
 
-    public void launch(Activity activity) {
+    public void launch(PicassoSampleActivity activity) {
       activity.startActivity(new Intent(activity, activityClass));
       activity.finish();
     }

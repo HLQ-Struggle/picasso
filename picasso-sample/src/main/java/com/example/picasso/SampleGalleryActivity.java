@@ -18,9 +18,11 @@ public class SampleGalleryActivity extends PicassoSampleActivity {
   private ImageView imageView;
   private ViewAnimator animator;
   private String image;
+  private Picasso picasso;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    picasso = new Picasso(this);
 
     setContentView(R.layout.sample_gallery_activity);
 
@@ -49,7 +51,7 @@ public class SampleGalleryActivity extends PicassoSampleActivity {
       // This ensures that the anonymous callback we have does not prevent the activity from
       // being garbage collected. It also prevents our callback from getting invoked even after the
       // activity has finished.
-      Picasso.get().cancelRequest(imageView);
+      picasso.cancelRequest(imageView);
     }
   }
 
@@ -71,7 +73,7 @@ public class SampleGalleryActivity extends PicassoSampleActivity {
     // Index 1 is the progress bar. Show it while we're loading the image.
     animator.setDisplayedChild(1);
 
-    Picasso.get().load(image).fit().centerInside().into(imageView, new EmptyCallback() {
+    picasso.load(image).fit().centerInside().into(imageView, new EmptyCallback() {
       @Override public void onSuccess() {
         // Index 0 is the image view.
         animator.setDisplayedChild(0);
